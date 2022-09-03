@@ -5,6 +5,7 @@ class NoInternetPage extends StatelessWidget {
   final String message;
 
   const NoInternetPage({Key? key, required this.message}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:restaurant_app/models/list_restaurant.dart';
+import 'package:restaurant_app/core/domain/entities/restaurant.dart';
 import 'package:restaurant_app/services/api_services.dart';
 
 class ItemListVertical extends StatelessWidget {

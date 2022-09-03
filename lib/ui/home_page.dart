@@ -5,6 +5,7 @@ class HomePage extends StatefulWidget {
   final int bottomNavBarIndex;
 
   const HomePage({Key? key, this.bottomNavBarIndex = 0}) : super(key: key);
+
   @override
   _HomePageState createState() => _HomePageState();
 }

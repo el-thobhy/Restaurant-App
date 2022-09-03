@@ -1,10 +1,14 @@
-part of 'restaurant_bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:restaurant_app/core/domain/entities/restaurant.dart';
 
 abstract class RestaurantState extends Equatable {
   const RestaurantState();
+
+  @override
+  List<Object> get props => [];
 }
 
-class InitialRestaurant extends RestaurantState {
+class RestaurantEmpty extends RestaurantState {
   @override
   List<Object> get props => [];
 }
@@ -17,7 +21,7 @@ class RestaurantLoading extends RestaurantState {
 class RestaurantLoaded extends RestaurantState {
   final List<Restaurant> restaurantList;
 
-  const RestaurantLoaded({required this.restaurantList});
+  const RestaurantLoaded(this.restaurantList);
 
   @override
   List<Object> get props => [restaurantList];
@@ -26,7 +30,7 @@ class RestaurantLoaded extends RestaurantState {
 class RestaurantError extends RestaurantState {
   final String message;
 
-  const RestaurantError({required this.message});
+  const RestaurantError(this.message);
 
   @override
   List<Object> get props => [message];

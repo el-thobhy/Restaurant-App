@@ -1,29 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:restaurant_app/models/detail_restaurant.dart';
-import 'package:restaurant_app/models/list_restaurant.dart';
 import 'package:http/http.dart' as http;
+import 'package:restaurant_app/models/detail_restaurant.dart';
 import 'package:restaurant_app/models/search_restaurant.dart';
 
 class ApiServices {
   static const String _baseUrl = "https://restaurant-api.dicoding.dev/";
   static const String baseUrlImage = "${_baseUrl}images/";
-
-  Future<ListRestaurant> getListRestaurant() async {
-    try {
-      var response = await http.get(Uri.parse(_baseUrl + "list"));
-
-      if (response.statusCode == 200) {
-        var data = json.decode(response.body);
-        return ListRestaurant.fromJson(data);
-      } else {
-        throw Exception('Fail Get Data' + response.body);
-      }
-    } on SocketException {
-      return ListRestaurant.fromNoJson();
-    }
-  }
 
   Future<DetailRestaurant> getDetailRestaurant(String id) async {
     try {

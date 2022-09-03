@@ -2,9 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:restaurant_app/bloc/list/restaurant_bloc.dart';
+import 'package:restaurant_app/bloc/list/restaurant_state.dart';
 import 'package:restaurant_app/bloc/page_bloc.dart';
-import 'package:restaurant_app/bloc/restaurant_bloc.dart';
-import 'package:restaurant_app/models/list_restaurant.dart';
+import 'package:restaurant_app/core/domain/entities/restaurant.dart';
 import 'package:restaurant_app/widget/item_list_vertical.dart';
 import 'package:restaurant_app/widget/no_internet.dart';
 
@@ -17,6 +18,14 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   TextEditingController find = TextEditingController();
+
+  @override
+  void initState() {
+    Future.microtask(() {
+      BlocProvider.of<RestaurantBloc>(context).add(const RestaurantEvent());
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,19 +95,28 @@ class _MainPageState extends State<MainPage> {
                   ],
                 ),
                 BlocBuilder<RestaurantBloc, RestaurantState>(
-                    builder: (_, listState) {
-                  if (listState is RestaurantLoaded) {
-                    List<Restaurant> restaurantList = listState.restaurantList;
-                    if (restaurantList.isEmpty) {
+                    builder: (context, listState) {
+                  if (listState is RestaurantLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (listState is RestaurantError) {
+                    if (kDebugMode) {
+                      print("pesan" + listState.message);
+                    }
+                    return NoInternetPage(message: listState.message);
+                  } else if (listState is RestaurantLoaded) {
+                    List<Restaurant> listRestaurant = listState.restaurantList;
+                    if (listRestaurant.isEmpty) {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: const [Text('Not Found')],
                       );
                     } else {
                       return Column(
-                        children: restaurantList
+                        children: listRestaurant
                             .map((e) =>
-                                ItemListVertical(e, restaurantList, onTap: () {
+                                ItemListVertical(e, listRestaurant, onTap: () {
                                   context
                                       .read<PageBloc>()
                                       .add(GoToDetailPage(idRestaurant: e.id));
@@ -106,11 +124,6 @@ class _MainPageState extends State<MainPage> {
                             .toList(),
                       );
                     }
-                  } else if (listState is RestaurantError) {
-                    if (kDebugMode) {
-                      print("pesan" + listState.message);
-                    }
-                    return NoInternetPage(message: listState.message);
                   }
                   return SizedBox(
                     height: MediaQuery.of(context).size.height,
