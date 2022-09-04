@@ -33,6 +33,20 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          backgroundColor: Colors.black,
+          title: const Text('Restaurant'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  SearchPage.routeName,
+                );
+              },
+              icon: const Icon(Icons.search),
+            )
+          ]),
       body: Stack(
         children: [
           Container(
@@ -47,54 +61,6 @@ class _MainPageState extends State<MainPage> {
             child: SafeArea(
                 child: Column(
               children: [
-                Container(
-                  margin: const EdgeInsets.only(right: 16, top: 16, left: 16),
-                  child: Text(
-                    "Restaurant",
-                    style:
-                        GoogleFonts.poppins(fontSize: 30, color: Colors.white),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 16, top: 6, bottom: 10),
-                  child: Text(
-                    'Recommendation Restaurant for you',
-                    style:
-                        GoogleFonts.poppins(fontSize: 14, color: Colors.white),
-                  ),
-                ),
-                Row(
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width - 16 - 16 - 100,
-                      margin: const EdgeInsets.only(left: 16, bottom: 6),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 16.0),
-                        child: TextField(
-                          controller: find,
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.white),
-                    ),
-                    Container(
-                        width: 90,
-                        height: 47,
-                        margin: const EdgeInsets.only(right: 16, left: 10),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, SearchPage.routeName);
-                          },
-                          child: Text(
-                            'Search',
-                            style: GoogleFonts.poppins(
-                              fontSize: 15,
-                            ),
-                          ),
-                        )),
-                  ],
-                ),
                 BlocBuilder<RestaurantBloc, RestaurantState>(
                     builder: (context, listState) {
                   if (listState is RestaurantLoading) {

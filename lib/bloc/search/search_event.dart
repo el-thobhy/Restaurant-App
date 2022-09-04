@@ -4,10 +4,10 @@ abstract class SearchEvent extends Equatable {
   const SearchEvent();
 }
 
-class SearchRestaurantName extends SearchEvent {
+class OnQueryChange extends SearchEvent {
   final String query;
 
-  const SearchRestaurantName({required this.query});
+  const OnQueryChange({required this.query});
 
   @override
   List<Object> get props => [];
