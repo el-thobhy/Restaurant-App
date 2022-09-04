@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:restaurant_app/core/common/exception.dart';
 import 'package:restaurant_app/core/common/failure.dart';
 import 'package:restaurant_app/core/data/datasources/remote_data_source.dart';
+import 'package:restaurant_app/core/domain/entities/detail.dart';
 import 'package:restaurant_app/core/domain/entities/restaurant.dart';
 import 'package:restaurant_app/core/domain/entities/search.dart';
 import 'package:restaurant_app/core/domain/repositories/restaurant_repository.dart';
@@ -40,6 +41,20 @@ class RestaurantRepositoryImpl implements RestaurantRepository {
     } on SocketException {
       return const Left(
           ConnectionFailure("Please Connect To Internet Connection"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Detail>> getDetail(String id) async {
+    try {
+      final result = await remoteDataSource.getDetail(id);
+      return Right(result.restaurant.toEntity());
+    } on ServerException {
+      return const Left(ServerFailure(''));
+    } on TlsException catch (e) {
+      return Left(CommonFailure(e.message));
+    } on SocketException {
+      return const Left(ConnectionFailure('Network Error'));
     }
   }
 

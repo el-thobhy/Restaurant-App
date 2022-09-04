@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:restaurant_app/core/common/constants.dart';
 import 'package:restaurant_app/core/common/exception.dart';
+import 'package:restaurant_app/core/data/models/detail/detail_restaurant.dart';
 import 'package:restaurant_app/core/data/models/list/restaurant_model.dart';
 import 'package:restaurant_app/core/data/models/list/restaurant_response.dart';
 import 'package:restaurant_app/core/data/models/search/search_model.dart';
@@ -11,6 +12,7 @@ import 'package:restaurant_app/core/data/models/search/search_response.dart';
 abstract class RestaurantRemoteDataSource {
   Future<List<RestaurantModel>> getRestaurant();
   Future<List<SearchModel>> getSearch(String query);
+  Future<DetailResponse> getDetail(String id);
 }
 
 class RestaurantRemoteDataSourceImpl implements RestaurantRemoteDataSource {
@@ -34,6 +36,16 @@ class RestaurantRemoteDataSourceImpl implements RestaurantRemoteDataSource {
       var data = json.decode(response.body);
       return SearchResponse.fromJson(data).result;
     } else {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<DetailResponse> getDetail(String id) async {
+    final response = await http.get(Uri.parse('$baseUrl/detail/$id'));
+    if(response.statusCode == 200){
+      return DetailResponse.fromJson(json.decode(response.body));
+    }else{
       throw ServerException();
     }
   }

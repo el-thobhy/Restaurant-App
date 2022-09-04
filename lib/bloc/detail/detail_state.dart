@@ -4,7 +4,7 @@ abstract class DetailState extends Equatable {
   const DetailState();
 }
 
-class InitialDetail extends DetailState {
+class DetailEmpty extends DetailState {
   @override
   List<Object> get props => [];
 }
