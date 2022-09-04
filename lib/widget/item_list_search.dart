@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:restaurant_app/models/search_restaurant.dart';
+import 'package:restaurant_app/core/domain/entities/search.dart';
 import 'package:restaurant_app/services/api_services.dart';
 
 class ItemListSearch extends StatelessWidget {
-  final SearchResult search;
-  final List<SearchResult> list;
+  final Search search;
+  final List<Search> list;
   final Function onTap;
 
   const ItemListSearch(this.search, this.list, {Key? key, required this.onTap})
