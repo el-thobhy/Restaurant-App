@@ -8,6 +8,7 @@ import 'package:restaurant_app/services/api_services.dart';
 import 'package:restaurant_app/widget/no_internet.dart';
 
 class PageDetail extends StatefulWidget {
+  static const routeName = '/detail-page';
   final String idRestaurant;
 
   const PageDetail({Key? key, required this.idRestaurant}) : super(key: key);
@@ -50,9 +51,7 @@ class _PageDetailState extends State<PageDetail> {
                               alignment: Alignment.centerLeft,
                               child: GestureDetector(
                                   onTap: () {
-                                    context
-                                        .read<PageBloc>()
-                                        .add(const GoToHomePage());
+                                    Navigator.pop(context);
                                   },
                                   child: Container(
                                       height: 30,

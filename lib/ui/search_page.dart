@@ -1,14 +1,15 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurant_app/bloc/page_bloc.dart';
 import 'package:restaurant_app/bloc/search_bloc.dart';
 import 'package:restaurant_app/models/search_restaurant.dart';
+import 'package:restaurant_app/ui/detail_page.dart';
 import 'package:restaurant_app/widget/item_list_search.dart';
 import 'package:restaurant_app/widget/no_internet.dart';
 
 class SearchPage extends StatefulWidget {
+  static const routeName = '/search-page';
   final String query;
 
   const SearchPage({Key? key, this.query = ""}) : super(key: key);
@@ -58,12 +59,7 @@ class _SearchPageState extends State<SearchPage> {
                               alignment: Alignment.centerLeft,
                               child: GestureDetector(
                                   onTap: () {
-                                    context
-                                        .read<PageBloc>()
-                                        .add(const GoToHomePage());
-                                    if (kDebugMode) {
-                                      print(const GoToHomePage());
-                                    }
+                                    Navigator.pop(context);
                                   },
                                   child: Container(
                                       margin: const EdgeInsets.only(left: 16),
@@ -119,9 +115,8 @@ class _SearchPageState extends State<SearchPage> {
                                           e,
                                           restoList,
                                           onTap: () {
-                                            context.read<PageBloc>().add(
-                                                GoToDetailPage(
-                                                    idRestaurant: e.id));
+                                            Navigator.pushNamed(
+                                                context, PageDetail.routeName);
                                           },
                                         ))
                                     .toList(),

@@ -4,12 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurant_app/bloc/list/restaurant_bloc.dart';
 import 'package:restaurant_app/bloc/list/restaurant_state.dart';
-import 'package:restaurant_app/bloc/page_bloc.dart';
 import 'package:restaurant_app/core/domain/entities/restaurant.dart';
+import 'package:restaurant_app/ui/detail_page.dart';
+import 'package:restaurant_app/ui/search_page.dart';
 import 'package:restaurant_app/widget/item_list_vertical.dart';
 import 'package:restaurant_app/widget/no_internet.dart';
 
 class MainPage extends StatefulWidget {
+  static const routeName = '/main-page';
+
   const MainPage({Key? key}) : super(key: key);
 
   @override
@@ -81,9 +84,7 @@ class _MainPageState extends State<MainPage> {
                         margin: const EdgeInsets.only(right: 16, left: 10),
                         child: ElevatedButton(
                           onPressed: () {
-                            context
-                                .read<PageBloc>()
-                                .add(GoToSearchPage(query: find.text));
+                            Navigator.pushNamed(context, SearchPage.routeName);
                           },
                           child: Text(
                             'Search',
@@ -117,9 +118,9 @@ class _MainPageState extends State<MainPage> {
                         children: listRestaurant
                             .map((e) =>
                                 ItemListVertical(e, listRestaurant, onTap: () {
-                                  context
-                                      .read<PageBloc>()
-                                      .add(GoToDetailPage(idRestaurant: e.id));
+                                  Navigator.pushNamed(
+                                      context, PageDetail.routeName,
+                                      arguments: e.id);
                                 }))
                             .toList(),
                       );
