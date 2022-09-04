@@ -9,17 +9,19 @@ class NoInternetPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height / 2,
-      child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              message,
-              style: GoogleFonts.poppins(fontSize: 20, color: Colors.white),
-              textAlign: TextAlign.center,
-            ),
-          ]),
+      height: MediaQuery.of(context).size.height * 0.75,
+      child: Center(
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                message,
+                style: GoogleFonts.poppins(fontSize: 20, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+            ]),
+      ),
     );
   }
 }

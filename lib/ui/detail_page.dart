@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:restaurant_app/bloc/detail/detail_bloc.dart';
 import 'package:restaurant_app/services/api_services.dart';
+import 'package:restaurant_app/ui/bloc/detail/detail_bloc.dart';
 import 'package:restaurant_app/widget/no_internet.dart';
 
 class PageDetail extends StatefulWidget {

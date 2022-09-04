@@ -25,7 +25,7 @@ class RestaurantRepositoryImpl implements RestaurantRepository {
       return Left(CommonFailure("error ${e.message}"));
     } on SocketException {
       return const Left(
-          ConnectionFailure("Please Connect To Internet Connection"));
+          ConnectionFailure("Network Error"));
     }
   }
 
@@ -40,7 +40,7 @@ class RestaurantRepositoryImpl implements RestaurantRepository {
       return Left(CommonFailure("error ${e.message}"));
     } on SocketException {
       return const Left(
-          ConnectionFailure("Please Connect To Internet Connection"));
+          ConnectionFailure("Network Error"));
     }
   }
 

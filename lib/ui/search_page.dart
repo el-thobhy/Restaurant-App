@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:restaurant_app/bloc/search/search_bloc.dart';
+import 'package:restaurant_app/ui/bloc/search/search_bloc.dart';
 import 'package:restaurant_app/ui/detail_page.dart';
 import 'package:restaurant_app/widget/item_list_search.dart';
+import 'package:restaurant_app/widget/no_internet.dart';
 
 class SearchPage extends StatefulWidget {
   static const routeName = '/search-page';
@@ -115,6 +116,8 @@ class _SearchPageState extends State<SearchPage> {
                       ))
                   .toList(),
             );
+          } else if (state is SearchError) {
+            return NoInternetPage(message: state.message);
           }
           return Container();
         });

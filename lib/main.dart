@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant_app/bloc/detail/detail_bloc.dart';
-import 'package:restaurant_app/bloc/search/search_bloc.dart';
 import 'package:restaurant_app/core/common/utils.dart';
 import 'package:restaurant_app/injection.dart' as di;
+import 'package:restaurant_app/ui/bloc/detail/detail_bloc.dart';
+import 'package:restaurant_app/ui/bloc/list/restaurant_bloc.dart';
+import 'package:restaurant_app/ui/bloc/search/search_bloc.dart';
 import 'package:restaurant_app/ui/detail_page.dart';
 import 'package:restaurant_app/ui/favorite_page.dart';
 import 'package:restaurant_app/ui/main_page.dart';
 import 'package:restaurant_app/ui/search_page.dart';
 import 'package:restaurant_app/ui/settings_page.dart';
 import 'package:restaurant_app/ui/splash.dart';
-import 'bloc/list/restaurant_bloc.dart';
-import 'bloc/page_bloc.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,7 +27,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        BlocProvider(create: (_) => PageBloc()),
         BlocProvider(
           create: (_) => di.locator<RestaurantBloc>(),
         ),

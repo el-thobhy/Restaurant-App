@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:restaurant_app/bloc/list/restaurant_state.dart';
 import 'package:restaurant_app/core/domain/usecases/get_restaurant.dart';
+import 'package:restaurant_app/ui/bloc/list/restaurant_state.dart';
 import 'package:rxdart/rxdart.dart';
 
 part 'restaurant_event.dart';
