@@ -63,14 +63,7 @@ class _MainPageState extends State<MainPage> {
               children: [
                 BlocBuilder<RestaurantBloc, RestaurantState>(
                     builder: (context, listState) {
-                  if (listState is RestaurantLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else if (listState is RestaurantError) {
-                    if (kDebugMode) {
-                      print("pesan" + listState.message);
-                    }
+                  if (listState is RestaurantError) {
                     return NoInternetPage(message: listState.message);
                   } else if (listState is RestaurantLoaded) {
                     List<Restaurant> listRestaurant = listState.restaurantList;
@@ -93,27 +86,9 @@ class _MainPageState extends State<MainPage> {
                     }
                   }
                   return SizedBox(
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.height,
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const CircularProgressIndicator(
-                            valueColor:
-                                AlwaysStoppedAnimation<Color>(Colors.white),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Text(
-                              'Loading',
-                              style: GoogleFonts.poppins(
-                                  fontSize: 20, color: Colors.white),
-                            ),
-                          )
-                        ],
-                      ),
+                    height: MediaQuery.of(context).size.height * 0.75,
+                    child: const Center(
+                      child: CircularProgressIndicator(),
                     ),
                   );
                 }),

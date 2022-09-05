@@ -59,6 +59,10 @@ class _PageDetailState extends State<PageDetail> {
                     style:
                         GoogleFonts.poppins(fontSize: 16, color: Colors.white),
                   )));
+                } else if (state.detailState == RequestState.error) {
+                  NoInternetPage(
+                    message: state.favoriteMessage,
+                  );
                 } else {
                   showDialog(
                       context: context,
@@ -85,14 +89,8 @@ class _PageDetailState extends State<PageDetail> {
                 } else {
                   return SizedBox(
                     height: MediaQuery.of(context).size.height * 0.75,
-                    child: Center(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          CircularProgressIndicator(),
-                        ],
-                      ),
+                    child: const Center(
+                      child: CircularProgressIndicator(),
                     ),
                   );
                 }

@@ -44,7 +44,7 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
     final result = await _getDetail.execute(id);
 
     result.fold((failure) {
-      emit(state.copyWith(detailState: RequestState.error));
+      emit(state.copyWith(detailState: RequestState.error, message: 'Network Error'));
     }, (data) {
       emit(state.copyWith(
           detailState: RequestState.loaded, detail: data, message: ''));
