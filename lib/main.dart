@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:restaurant_app/core/common/utils.dart';
 import 'package:restaurant_app/injection.dart' as di;
 import 'package:restaurant_app/ui/bloc/detail/detail_bloc.dart';
+import 'package:restaurant_app/ui/bloc/favorite/favorite_bloc.dart';
 import 'package:restaurant_app/ui/bloc/list/restaurant_bloc.dart';
 import 'package:restaurant_app/ui/bloc/search/search_bloc.dart';
 import 'package:restaurant_app/ui/detail_page.dart';
@@ -31,7 +32,8 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<RestaurantBloc>(),
         ),
         BlocProvider(create: (_) => di.locator<DetailBloc>()),
-        BlocProvider(create: (_) => di.locator<SearchBloc>())
+        BlocProvider(create: (_) => di.locator<SearchBloc>()),
+        BlocProvider(create: (_) => di.locator<FavoriteBloc>())
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,

@@ -32,17 +32,20 @@ class DatabaseHelper {
   void _onCreate(Database db, int version) async {
     await db.execute('''
     CREATE TABLE $_tblRestaurantList (
-    id INTEGER PRIMARY KEY,
-    title TEXT,
-    overview TEXT,
-    posterPath TEXT
+    id TEXT PRIMARY KEY,
+    city TEXT,
+    name TEXT,
+    rate FLOAT,
+    description TEXT,
+    pictId TEXT
     );
     ''');
   }
 
   Future<int> insertRestaurantList(RestaurantTable restaurant) async {
     final db = await database;
-    return await db!.insert(_tblRestaurantList, restaurant.toJson());
+    return await db!.insert(_tblRestaurantList, restaurant.toJson(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   Future<int> removeRestaurantList(RestaurantTable restaurant) async {
@@ -54,7 +57,7 @@ class DatabaseHelper {
     );
   }
 
-  Future<Map<String, dynamic>?> getRestaurantId(int id) async {
+  Future<Map<String, dynamic>?> getRestaurantId(String id) async {
     final db = await database;
     final result = await db!.query(
       _tblRestaurantList,

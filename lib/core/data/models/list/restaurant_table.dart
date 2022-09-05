@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:restaurant_app/core/domain/entities/detail.dart';
 import 'package:restaurant_app/core/domain/entities/restaurant.dart';
 
 class RestaurantTable extends Equatable {
@@ -17,8 +18,7 @@ class RestaurantTable extends Equatable {
       required this.desc,
       required this.pictId});
 
-  factory RestaurantTable.fromEntity(RestaurantTable restaurant) =>
-      RestaurantTable(
+  factory RestaurantTable.fromEntity(Detail restaurant) => RestaurantTable(
         id: restaurant.id,
         city: restaurant.city,
         name: restaurant.name,
