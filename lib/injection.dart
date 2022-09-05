@@ -25,7 +25,7 @@ void init() {
   locator.registerFactory(
       () => DetailBloc(locator(), locator(), locator(), locator()));
   locator.registerFactory(
-      () => FavoriteBloc(locator(), locator(), locator(), locator()));
+      () => FavoriteBloc(locator()));
 
   //useCase
   locator.registerLazySingleton(() => GetRestaurant(locator()));
