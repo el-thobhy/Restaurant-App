@@ -21,11 +21,12 @@ class RestaurantResponse extends Equatable {
           restaurant: List<RestaurantModel>.from(
               json["restaurants"].map((a) => RestaurantModel.fromJson(a))));
 
-  factory RestaurantResponse.fromNoJson() => const RestaurantResponse(
-      error: true,
-      message: 'No Internet Connection\nplease check your internet connection',
-      count: 0,
-      restaurant: []);
+  Map<String, dynamic> toJson() => {
+    "error": error,
+    "message": message,
+    "count": count,
+    "restaurant": List<dynamic>.from(restaurant.map((e) => e.toJson())),
+  };
 
   @override
   List<Object> get props => [restaurant, message, error];

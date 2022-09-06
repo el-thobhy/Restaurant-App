@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:restaurant_app/core/common/constants.dart';
 import 'package:restaurant_app/core/domain/entities/restaurant.dart';
-import 'package:restaurant_app/services/api_services.dart';
 
 class ItemListVertical extends StatelessWidget {
   final Restaurant resto;
@@ -37,9 +37,7 @@ class ItemListVertical extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: const BorderRadius.all(Radius.circular(15)),
                       image: DecorationImage(
-                          image: NetworkImage(ApiServices.baseUrlImage +
-                              'medium/' +
-                              resto.pictId),
+                          image: NetworkImage('$baseUrl/images/medium/${resto.pictId}'),
                           fit: BoxFit.cover)),
                 ),
                 Column(

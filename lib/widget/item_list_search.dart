@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:restaurant_app/core/common/constants.dart';
 import 'package:restaurant_app/core/domain/entities/search.dart';
-import 'package:restaurant_app/services/api_services.dart';
 
 class ItemListSearch extends StatelessWidget {
   final Search search;
@@ -35,9 +35,8 @@ class ItemListSearch extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: const BorderRadius.all(Radius.circular(15)),
                       image: DecorationImage(
-                          image: NetworkImage(ApiServices.baseUrlImage +
-                              'medium/' +
-                              search.pictId),
+                          image:
+                              NetworkImage('$baseUrl/images/medium/${search.pictId}'),
                           fit: BoxFit.cover)),
                 ),
                 Column(

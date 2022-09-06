@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurant_app/core/common/constants.dart';
 import 'package:restaurant_app/core/common/state_enum.dart';
 import 'package:restaurant_app/core/domain/entities/detail.dart';
-import 'package:restaurant_app/services/api_services.dart';
 import 'package:restaurant_app/ui/bloc/detail/detail_bloc.dart';
 import 'package:restaurant_app/widget/no_internet.dart';
 
@@ -124,9 +123,9 @@ class DetailContent extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     image: DecorationImage(
-                        image: NetworkImage(ApiServices.baseUrlImage +
-                            'medium/' +
-                            detail.pictId),
+                        image: NetworkImage(
+                          '$baseUrl/images/medium/${detail.pictId}',
+                        ),
                         fit: BoxFit.cover)),
               )),
         ),

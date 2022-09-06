@@ -14,6 +14,7 @@ import 'package:restaurant_app/core/domain/usecases/save_favorite.dart';
 import 'package:restaurant_app/ui/bloc/detail/detail_bloc.dart';
 import 'package:restaurant_app/ui/bloc/favorite/favorite_bloc.dart';
 import 'package:restaurant_app/ui/bloc/list/restaurant_bloc.dart';
+import 'package:restaurant_app/ui/bloc/schedule/schedule_cubit.dart';
 import 'package:restaurant_app/ui/bloc/search/search_bloc.dart';
 
 final locator = GetIt.instance;
@@ -24,8 +25,8 @@ void init() {
   locator.registerFactory(() => SearchBloc(locator()));
   locator.registerFactory(
       () => DetailBloc(locator(), locator(), locator(), locator()));
-  locator.registerFactory(
-      () => FavoriteBloc(locator()));
+  locator.registerFactory(() => FavoriteBloc(locator()));
+  locator.registerFactory(() => ScheduleCubit());
 
   //useCase
   locator.registerLazySingleton(() => GetRestaurant(locator()));
