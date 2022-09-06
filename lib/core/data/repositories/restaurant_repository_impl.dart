@@ -15,7 +15,8 @@ class RestaurantRepositoryImpl implements RestaurantRepository {
   final RestaurantRemoteDataSource remoteDataSource;
   final RestauranLocalDataSource localDataSource;
 
-  RestaurantRepositoryImpl({required this.remoteDataSource, required this.localDataSource});
+  RestaurantRepositoryImpl(
+      {required this.remoteDataSource, required this.localDataSource});
 
   @override
   Future<Either<Failure, List<Restaurant>>> getRestaurant() async {
@@ -27,8 +28,7 @@ class RestaurantRepositoryImpl implements RestaurantRepository {
     } on TlsException catch (e) {
       return Left(CommonFailure("error ${e.message}"));
     } on SocketException {
-      return const Left(
-          ConnectionFailure("Network Error"));
+      return const Left(ConnectionFailure("Network Error"));
     }
   }
 
@@ -42,8 +42,7 @@ class RestaurantRepositoryImpl implements RestaurantRepository {
     } on TlsException catch (e) {
       return Left(CommonFailure("error ${e.message}"));
     } on SocketException {
-      return const Left(
-          ConnectionFailure("Network Error"));
+      return const Left(ConnectionFailure("Network Error"));
     }
   }
 
@@ -64,7 +63,8 @@ class RestaurantRepositoryImpl implements RestaurantRepository {
   @override
   Future<Either<Failure, String>> saveFavorite(Detail detail) async {
     try {
-      final result = await localDataSource.insertFavorite(RestaurantTable.fromEntity(detail));
+      final result = await localDataSource
+          .insertFavorite(RestaurantTable.fromEntity(detail));
       return Right(result);
     } on DatabaseException catch (e) {
       return Left(DatabaseFailure(e.message));
@@ -76,8 +76,8 @@ class RestaurantRepositoryImpl implements RestaurantRepository {
   @override
   Future<Either<Failure, String>> removeFavorite(Detail detail) async {
     try {
-      final result =
-          await localDataSource.removeFavorite(RestaurantTable.fromEntity(detail));
+      final result = await localDataSource
+          .removeFavorite(RestaurantTable.fromEntity(detail));
       return Right(result);
     } on DatabaseException catch (e) {
       return Left(DatabaseFailure(e.message));
@@ -95,5 +95,4 @@ class RestaurantRepositoryImpl implements RestaurantRepository {
     final result = await localDataSource.getRestaurantFavorite();
     return Right(result.map((data) => data.toEntity()).toList());
   }
-
 }

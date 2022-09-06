@@ -30,29 +30,33 @@ class _SplashState extends State<Splash> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'Restaurant',
-                    style: GoogleFonts.poppins(
-                        color: Colors.white,
-                        fontSize: 30.0,
-                        fontWeight: FontWeight.bold),
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Restaurant',
+                  style: GoogleFonts.poppins(
+                    color: Colors.white,
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.bold,
                   ),
-                  Text(
-                    'APP',
-                    style: GoogleFonts.poppins(
-                        color: Colors.white,
-                        fontSize: 90.0,
-                        fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  'APP',
+                  style: GoogleFonts.poppins(
+                    color: Colors.white,
+                    fontSize: 90.0,
+                    fontWeight: FontWeight.bold,
                   ),
-                ])
+                ),
+              ],
+            )
           ],
         ),
       ),
     );
   }
+
   startTimer() async {
     var duration = const Duration(seconds: 5);
     return Timer(duration, route);
@@ -60,6 +64,10 @@ class _SplashState extends State<Splash> {
 
   route() {
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (_) => const BottomNav()));
+      context,
+      MaterialPageRoute(
+        builder: (_) => const BottomNav(),
+      ),
+    );
   }
 }

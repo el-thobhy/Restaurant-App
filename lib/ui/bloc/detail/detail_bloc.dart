@@ -39,15 +39,23 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
   ) async {
     final id = event.id;
 
-    emit(state.copyWith(detailState: RequestState.loading));
+    emit(state.copyWith(
+      detailState: RequestState.loading,
+    ));
 
     final result = await _getDetail.execute(id);
 
     result.fold((failure) {
-      emit(state.copyWith(detailState: RequestState.error, message: 'Network Error'));
+      emit(state.copyWith(
+        detailState: RequestState.error,
+        message: 'Network Error',
+      ));
     }, (data) {
       emit(state.copyWith(
-          detailState: RequestState.loaded, detail: data, message: ''));
+        detailState: RequestState.loaded,
+        detail: data,
+        message: '',
+      ));
     });
   }
 
@@ -57,7 +65,9 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
   ) async {
     final result = await _getFavoriteStatus.execute(event.id);
 
-    emit(state.copyWith(isAddedToFavorite: result));
+    emit(state.copyWith(
+      isAddedToFavorite: result,
+    ));
   }
 
   FutureOr<void> _addToFavorite(
@@ -68,10 +78,14 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
 
     result.fold(
       (failure) {
-        emit(state.copyWith(favoriteMessage: failure.message));
+        emit(state.copyWith(
+          favoriteMessage: failure.message,
+        ));
       },
       (message) {
-        emit(state.copyWith(favoriteMessage: bookmarkAddSourceMessage));
+        emit(state.copyWith(
+          favoriteMessage: bookmarkAddSourceMessage,
+        ));
       },
     );
 
@@ -88,10 +102,14 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
 
     result.fold(
       (failure) {
-        emit(state.copyWith(favoriteMessage: failure.message));
+        emit(state.copyWith(
+          favoriteMessage: failure.message,
+        ));
       },
       (message) {
-        emit(state.copyWith(favoriteMessage: bookmarkAddSourceMessage));
+        emit(state.copyWith(
+          favoriteMessage: bookmarkAddSourceMessage,
+        ));
       },
     );
     add(FetchFavoriteStatus(event.detail.id));

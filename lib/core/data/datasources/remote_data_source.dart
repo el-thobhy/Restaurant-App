@@ -16,10 +16,9 @@ abstract class RestaurantRemoteDataSource {
 }
 
 class RestaurantRemoteDataSourceImpl implements RestaurantRemoteDataSource {
+  final http.Client client;
 
-final http.Client client;
-
-RestaurantRemoteDataSourceImpl(this.client);
+  RestaurantRemoteDataSourceImpl(this.client);
 
   @override
   Future<List<RestaurantModel>> getRestaurant() async {
@@ -48,9 +47,9 @@ RestaurantRemoteDataSourceImpl(this.client);
   @override
   Future<DetailResponse> getDetail(String id) async {
     final response = await client.get(Uri.parse('$baseUrl/detail/$id'));
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       return DetailResponse.fromJson(json.decode(response.body));
-    }else{
+    } else {
       throw ServerException();
     }
   }

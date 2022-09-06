@@ -8,13 +8,14 @@ class Search extends Equatable {
   final String city;
   final double rate;
 
-  const Search(
-      {required this.id,
-      required this.city,
-      required this.name,
-      required this.rate,
-      required this.desc,
-      required this.pictId});
+  const Search({
+    required this.id,
+    required this.city,
+    required this.name,
+    required this.rate,
+    required this.desc,
+    required this.pictId,
+  });
 
   const Search.saveBookmark({
     required this.id,
@@ -26,5 +27,12 @@ class Search extends Equatable {
   });
 
   @override
-  List<Object?> get props => [id, city, name, rate, desc, pictId];
+  List<Object?> get props => [
+        id,
+        city,
+        name,
+        rate,
+        desc,
+        pictId,
+      ];
 }

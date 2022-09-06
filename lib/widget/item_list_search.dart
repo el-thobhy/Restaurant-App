@@ -8,8 +8,12 @@ class ItemListSearch extends StatelessWidget {
   final List<Search> list;
   final Function onTap;
 
-  const ItemListSearch(this.search, this.list, {Key? key, required this.onTap})
-      : super(key: key);
+  const ItemListSearch(
+    this.search,
+    this.list, {
+    Key? key,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +26,10 @@ class ItemListSearch extends StatelessWidget {
         margin: EdgeInsets.fromLTRB(16, 12, 16, (search == list.last) ? 12 : 0),
         elevation: 1,
         shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15))),
+          borderRadius: BorderRadius.all(
+            Radius.circular(15),
+          ),
+        ),
         child: Column(
           children: [
             Row(
@@ -33,25 +40,34 @@ class ItemListSearch extends StatelessWidget {
                   height: 100,
                   width: 150,
                   decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(15)),
-                      image: DecorationImage(
-                          image:
-                              NetworkImage('$baseUrl/images/medium/${search.pictId}'),
-                          fit: BoxFit.cover)),
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(15),
+                    ),
+                    image: DecorationImage(
+                        image: NetworkImage(
+                            '$baseUrl/images/medium/${search.pictId}'),
+                        fit: BoxFit.cover),
+                  ),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                        width: 100,
-                        margin: const EdgeInsets.only(top: 16),
-                        child: Text(
-                          search.name,
-                          style: GoogleFonts.poppins(
-                              fontSize: 14, color: Colors.white),
-                        )),
+                      width: 100,
+                      margin: const EdgeInsets.only(top: 16),
+                      child: Text(
+                        search.name,
+                        style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                     Container(
-                      margin: const EdgeInsets.only(bottom: 10, top: 10),
+                      margin: const EdgeInsets.only(
+                        bottom: 10,
+                        top: 10,
+                      ),
                       child: Row(
                         children: [
                           const Icon(
@@ -61,32 +77,35 @@ class ItemListSearch extends StatelessWidget {
                           Text(
                             search.city,
                             style: GoogleFonts.poppins(
-                                fontSize: 14, color: Colors.white),
+                              fontSize: 14,
+                              color: Colors.white,
+                            ),
                           ),
                         ],
                       ),
                     ),
                     Row(
                       children: List<Widget>.generate(
-                              5,
-                              (index) => Icon(
-                                    (index < search.rate.round())
-                                        ? Icons.star
-                                        : Icons.star_outline,
-                                    size: 16,
-                                    color: Colors.amber,
-                                  )) +
+                            5,
+                            (index) => Icon(
+                              (index < search.rate.round())
+                                  ? Icons.star
+                                  : Icons.star_outline,
+                              size: 16,
+                              color: Colors.amber,
+                            ),
+                          ) +
                           [
                             const SizedBox(width: 4),
                             Text(
                               search.rate.toString(),
                               style: GoogleFonts.poppins(
                                   fontSize: 14, color: Colors.white),
-                            )
+                            ),
                           ],
-                    )
+                    ),
                   ],
-                )
+                ),
               ],
             ),
           ],

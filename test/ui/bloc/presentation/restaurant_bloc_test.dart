@@ -13,23 +13,34 @@ void main() {
   late MockGetRestaurant usecase;
   late RestaurantBloc resto;
 
-  setUp(() {
-    usecase = MockGetRestaurant();
-    resto = RestaurantBloc(usecase);
-  });
+  setUp(
+    () {
+      usecase = MockGetRestaurant();
+      resto = RestaurantBloc(usecase);
+    },
+  );
 
-  test('the initial state should be empty', () {
-    expect(resto.state, RestaurantEmpty());
-  });
+  test(
+    'the initial state should be empty',
+    () {
+      expect(
+        resto.state,
+        RestaurantEmpty(),
+      );
+    },
+  );
 
   blocTest<RestaurantBloc, RestaurantState>(
     'should emit loading state and then loaded data state when success',
     build: () {
-      when(usecase.execute())
-          .thenAnswer((_) async => Right(testRestaurantList));
+      when(usecase.execute()).thenAnswer(
+        (_) async => Right(testRestaurantList),
+      );
       return resto;
     },
-    act: (bloc) => bloc.add(const RestaurantEvent()),
+    act: (bloc) => bloc.add(
+      OnFetchGetRestaurant(),
+    ),
     expect: () => [
       RestaurantLoading(),
       RestaurantLoaded(testRestaurantList),
@@ -43,11 +54,16 @@ void main() {
   blocTest<RestaurantBloc, RestaurantState>(
     'should emit loading state and return error state when fail to fetch data',
     build: () {
-      when(usecase.execute())
-          .thenAnswer((_) async => const Left(ServerFailure('Network Error')));
+      when(usecase.execute()).thenAnswer(
+        (_) async => const Left(
+          ServerFailure('Network Error'),
+        ),
+      );
       return resto;
     },
-    act: (bloc) => bloc.add(OnFetchGetRestaurant()),
+    act: (bloc) => bloc.add(
+      OnFetchGetRestaurant(),
+    ),
     expect: () => [
       RestaurantLoading(),
       const RestaurantError('Network Error'),
@@ -58,10 +74,14 @@ void main() {
   blocTest<RestaurantBloc, RestaurantState>(
     'should emit loading state and then empty state when data is empty',
     build: () {
-      when(usecase.execute()).thenAnswer((_) async => const Right([]));
+      when(usecase.execute()).thenAnswer(
+        (_) async => const Right([]),
+      );
       return resto;
     },
-    act: (bloc) => bloc.add(OnFetchGetRestaurant()),
+    act: (bloc) => bloc.add(
+      OnFetchGetRestaurant(),
+    ),
     expect: () => [
       RestaurantLoading(),
       RestaurantEmpty(),

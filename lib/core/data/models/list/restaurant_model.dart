@@ -9,22 +9,24 @@ class RestaurantModel extends Equatable {
   final String city;
   final double rate;
 
-  const RestaurantModel(
-      {required this.id,
-      required this.city,
-      required this.name,
-      required this.rate,
-      required this.desc,
-      required this.pictId});
+  const RestaurantModel({
+    required this.id,
+    required this.city,
+    required this.name,
+    required this.rate,
+    required this.desc,
+    required this.pictId,
+  });
 
   factory RestaurantModel.fromJson(Map<String, dynamic> json) =>
       RestaurantModel(
-          id: json['id'],
-          city: json['city'],
-          name: json['name'],
-          rate: json['rating'].toDouble(),
-          desc: json['description'],
-          pictId: json['pictureId']);
+        id: json['id'],
+        city: json['city'],
+        name: json['name'],
+        rate: json['rating'].toDouble(),
+        desc: json['description'],
+        pictId: json['pictureId'],
+      );
 
   Map<String, dynamic> toJson() => {
         "error": id,
@@ -36,9 +38,22 @@ class RestaurantModel extends Equatable {
 
   Restaurant toEntity() {
     return Restaurant(
-        id: id, city: city, name: name, rate: rate, desc: desc, pictId: pictId);
+      id: id,
+      city: city,
+      name: name,
+      rate: rate,
+      desc: desc,
+      pictId: pictId,
+    );
   }
 
   @override
-  List<Object> get props => [id, city, name, rate, desc, pictId];
+  List<Object> get props => [
+        id,
+        city,
+        name,
+        rate,
+        desc,
+        pictId,
+      ];
 }

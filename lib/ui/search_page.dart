@@ -38,9 +38,10 @@ class _SearchPageState extends State<SearchPage> {
             color: Colors.black54,
           ),
           SafeArea(
-              child: Container(
-            color: Colors.black,
-          )),
+            child: Container(
+              color: Colors.black,
+            ),
+          ),
           SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Padding(
@@ -50,13 +51,15 @@ class _SearchPageState extends State<SearchPage> {
                   TextField(
                     style: const TextStyle(fontSize: 20.0, color: Colors.white),
                     onSubmitted: (query) {
-                      context
-                          .read<SearchBloc>()
-                          .add(OnQueryChange(query: query));
+                      context.read<SearchBloc>().add(
+                            OnQueryChange(query: query),
+                          );
                     },
                     decoration: const InputDecoration(
                       enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20.0),
+                        ),
                         borderSide: BorderSide(color: Colors.white, width: 1.0),
                       ),
                       hintStyle: TextStyle(color: Colors.white, fontSize: 16.0),
@@ -66,7 +69,9 @@ class _SearchPageState extends State<SearchPage> {
                         color: Colors.white,
                       ),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20.0),
+                        ),
                         borderSide: BorderSide(color: Colors.white, width: 1.0),
                       ),
                     ),
@@ -85,41 +90,44 @@ class _SearchPageState extends State<SearchPage> {
 
   Widget _buildSearchResult() {
     return BlocBuilder<SearchBloc, SearchState>(
-        key: const Key('search'),
-        builder: (context, state) {
-          if (state is SearchLoading) {
-            return SizedBox(
-              height: MediaQuery.of(context).size.height * 0.75,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
-                    CircularProgressIndicator(),
-                  ],
-                ),
+      key: const Key('search'),
+      builder: (context, state) {
+        if (state is SearchLoading) {
+          return SizedBox(
+            height: MediaQuery.of(context).size.height * 0.75,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: const [
+                  CircularProgressIndicator(),
+                ],
               ),
-            );
-          } else if (state is SearchLoaded) {
-            final list = state.result;
-            return Column(
-              children: list
-                  .map((e) => ItemListSearch(
-                        e,
-                        list,
-                        onTap: () {
-                          Navigator.pushNamed(context, PageDetail.routeName,
-                              arguments: e.id);
-                        },
-                      ))
-                  .toList(),
-            );
-          } else if (state is SearchError) {
-            return ErrorState(message: state.message);
-          } else if (state is SearchEmpty) {
-            return const EmptyState();
-          }
+            ),
+          );
+        } else if (state is SearchLoaded) {
+          final list = state.result;
+          return Column(
+            children: list
+                .map(
+                  (e) => ItemListSearch(
+                    e,
+                    list,
+                    onTap: () {
+                      Navigator.pushNamed(context, PageDetail.routeName,
+                          arguments: e.id);
+                    },
+                  ),
+                )
+                .toList(),
+          );
+        } else if (state is SearchError) {
+          return ErrorState(message: state.message);
+        } else if (state is SearchEmpty) {
           return const EmptyState();
-        });
+        }
+        return const EmptyState();
+      },
+    );
   }
 }

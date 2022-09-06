@@ -23,7 +23,9 @@ class FavoritePage extends StatefulWidget {
 class _FavoritePageState extends State<FavoritePage> with RouteAware {
   @override
   void initState() {
-    context.read<FavoriteBloc>().add(OnFetchFavorite());
+    context.read<FavoriteBloc>().add(
+          OnFetchFavorite(),
+        );
     super.initState();
   }
 
@@ -35,7 +37,9 @@ class _FavoritePageState extends State<FavoritePage> with RouteAware {
 
   @override
   void didPopNext() {
-    context.read<FavoriteBloc>().add(OnFetchFavorite());
+    context.read<FavoriteBloc>().add(
+          OnFetchFavorite(),
+        );
   }
 
   @override
@@ -57,55 +61,65 @@ class _FavoritePageState extends State<FavoritePage> with RouteAware {
             color: Colors.black54,
           ),
           SafeArea(
-              child: Container(
-            color: Colors.black,
-          )),
+            child: Container(
+              color: Colors.black,
+            ),
+          ),
           SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: SafeArea(
-                child: Column(
-              children: [
-                BlocBuilder<FavoriteBloc, FavoriteState>(
+              child: Column(
+                children: [
+                  BlocBuilder<FavoriteBloc, FavoriteState>(
                     builder: (context, listState) {
-                  if (listState is FavoriteError) {
-                    return ErrorState(message: listState.message);
-                  } else if (listState is FavoriteLoaded) {
-                    List<Restaurant> listRestaurant = listState.result;
-                    if (listRestaurant.isEmpty) {
-                      return SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.75,
-                          child: Center(
+                      if (listState is FavoriteError) {
+                        return ErrorState(message: listState.message);
+                      } else if (listState is FavoriteLoaded) {
+                        List<Restaurant> listRestaurant = listState.result;
+                        if (listRestaurant.isEmpty) {
+                          return SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.75,
+                            child: Center(
                               child: Text(
-                            'Empty',
-                            style: GoogleFonts.poppins(
-                                fontSize: 24, color: Colors.white),
-                          )));
-                    } else {
-                      return Column(
-                        children: listRestaurant
-                            .map((e) =>
-                                ItemListVertical(e, listRestaurant, onTap: () {
-                                  Navigator.pushNamed(
-                                      context, PageDetail.routeName,
-                                      arguments: e.id);
-                                }))
-                            .toList(),
-                      );
-                    }
-                  } else if (listState is FavoriteLoading) {
-                    return SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.75,
-                      child: const Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    );
-                  } else if (listState is FavoriteEmpty) {
-                    return const EmptyState();
-                  }
-                  return const EmptyState();
-                }),
-              ],
-            )),
+                                'Empty',
+                                style: GoogleFonts.poppins(
+                                    fontSize: 24, color: Colors.white),
+                              ),
+                            ),
+                          );
+                        } else {
+                          return Column(
+                            children: listRestaurant
+                                .map(
+                                  (e) => ItemListVertical(
+                                    e,
+                                    listRestaurant,
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, PageDetail.routeName,
+                                          arguments: e.id);
+                                    },
+                                  ),
+                                )
+                                .toList(),
+                          );
+                        }
+                      } else if (listState is FavoriteLoading) {
+                        return SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.75,
+                          child: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
+                      } else if (listState is FavoriteEmpty) {
+                        return const EmptyState();
+                      }
+                      return const EmptyState();
+                    },
+                  ),
+                ],
+              ),
+            ),
           )
         ],
       ),

@@ -43,6 +43,11 @@ class DetailState extends Equatable {
   }
 
   @override
-  List<Object?> get props =>
-      [detail, message, detailState, favoriteMessage, isAddedTofavorite];
+  List<Object?> get props => [
+        detail,
+        message,
+        detailState,
+        favoriteMessage,
+        isAddedTofavorite,
+      ];
 }

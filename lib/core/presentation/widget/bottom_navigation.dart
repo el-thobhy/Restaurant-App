@@ -19,7 +19,7 @@ class _BottomNavState extends State<BottomNav> {
   final List<Widget> pageOptions = [
     const MainPage(),
     const FavoritePage(),
-    const SettingsPage()
+    const SettingsPage(),
   ];
 
   @override

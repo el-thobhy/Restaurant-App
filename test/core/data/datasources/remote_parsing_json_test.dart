@@ -105,7 +105,8 @@ void main() {
     test("should throw Empty list when the query didn't match to any result",
         () async {
       final search = SearchResponse.fromJson(
-              json.decode(readJson('dummy_data/empty_search.json'))).result;
+              json.decode(readJson('dummy_data/empty_search.json')))
+          .result;
       const query = "resda";
       // arrange
       when(mockHttpClient.get(Uri.parse('$baseUrl/search?q=$query')))

@@ -33,12 +33,12 @@ void main() async {
   final BackgroundService _service = BackgroundService();
 
   _service.initializeIsolate();
-  
+
   if (Platform.isAndroid) {
     await AndroidAlarmManager.initialize();
   }
   await notificationHelper.initNotifications(flutterLocalNotificationsPlugin);
-  
+
   await HttpClientInit.init();
 
   di.init();
@@ -64,43 +64,65 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => di.locator<RestaurantBloc>(),
         ),
-        BlocProvider(create: (_) => di.locator<DetailBloc>()),
-        BlocProvider(create: (_) => di.locator<SearchBloc>()),
-        BlocProvider(create: (_) => di.locator<FavoriteBloc>()),
-        BlocProvider(create: (_) => di.locator<ScheduleCubit>()),
+        BlocProvider(
+          create: (_) => di.locator<DetailBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<SearchBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<FavoriteBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<ScheduleCubit>(),
+        ),
       ],
       child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: const Splash(),
-          navigatorObservers: [routeObserver],
-          onGenerateRoute: (RouteSettings settings) {
-            switch (settings.name) {
-              case Splash.routeName:
-                return MaterialPageRoute(builder: (_) => const Splash());
-              case MainPage.routeName:
-                return MaterialPageRoute(builder: (_) => const MainPage());
-              case FavoritePage.routeName:
-                return MaterialPageRoute(builder: (_) => const FavoritePage());
-              case SearchPage.routeName:
-                return MaterialPageRoute(builder: (_) => const SearchPage());
-              case PageDetail.routeName:
-                final id = settings.arguments as String;
-                return MaterialPageRoute(
-                  builder: (_) => PageDetail(idRestaurant: id),
-                  settings: settings,
-                );
-              case SettingsPage.routeName:
-                return MaterialPageRoute(builder: (_) => const SettingsPage());
+        debugShowCheckedModeBanner: false,
+        home: const Splash(),
+        navigatorObservers: [routeObserver],
+        onGenerateRoute: (RouteSettings settings) {
+          switch (settings.name) {
+            case Splash.routeName:
+              return MaterialPageRoute(
+                builder: (_) => const Splash(),
+              );
+            case MainPage.routeName:
+              return MaterialPageRoute(
+                builder: (_) => const MainPage(),
+              );
+            case FavoritePage.routeName:
+              return MaterialPageRoute(
+                builder: (_) => const FavoritePage(),
+              );
+            case SearchPage.routeName:
+              return MaterialPageRoute(
+                builder: (_) => const SearchPage(),
+              );
+            case PageDetail.routeName:
+              final id = settings.arguments as String;
+              return MaterialPageRoute(
+                builder: (_) => PageDetail(idRestaurant: id),
+                settings: settings,
+              );
+            case SettingsPage.routeName:
+              return MaterialPageRoute(
+                builder: (_) => const SettingsPage(),
+              );
 
-              default:
-                return MaterialPageRoute(builder: (_) {
+            default:
+              return MaterialPageRoute(
+                builder: (_) {
                   return const Scaffold(
-                      body: Center(
-                    child: Text("page Not Found"),
-                  ));
-                });
-            }
-          }),
+                    body: Center(
+                      child: Text("page Not Found"),
+                    ),
+                  );
+                },
+              );
+          }
+        },
+      ),
     );
   }
 }

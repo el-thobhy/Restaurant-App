@@ -7,11 +7,12 @@ class SearchResponse extends Equatable {
   final int count;
   final List<SearchModel> result;
 
-  const SearchResponse(
-      {required this.error,
-      required this.message,
-      required this.count,
-      required this.result});
+  const SearchResponse({
+    required this.error,
+    required this.message,
+    required this.count,
+    required this.result,
+  });
 
   factory SearchResponse.fromJson(Map<String, dynamic> json) => SearchResponse(
         error: json['error'],
@@ -28,5 +29,9 @@ class SearchResponse extends Equatable {
         "count": count,
       };
   @override
-  List<Object> get props => [error, message, result];
+  List<Object> get props => [
+        error,
+        message,
+        result,
+      ];
 }

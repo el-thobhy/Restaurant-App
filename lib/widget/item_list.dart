@@ -8,8 +8,12 @@ class ItemList extends StatelessWidget {
   final List<Restaurant> restaurant;
   final Function onTap;
 
-  const ItemList(this.resto, this.restaurant, {Key? key, required this.onTap})
-      : super(key: key);
+  const ItemList(
+    this.resto,
+    this.restaurant, {
+    Key? key,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +26,10 @@ class ItemList extends StatelessWidget {
         margin: const EdgeInsets.fromLTRB(16, 12, 16, 12),
         elevation: 1,
         shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15))),
+          borderRadius: BorderRadius.all(
+            Radius.circular(15),
+          ),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -31,11 +38,14 @@ class ItemList extends StatelessWidget {
               height: 100,
               width: 150,
               decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(15)),
-                  image: DecorationImage(
-                      image: NetworkImage(
-                          '$baseUrl/images/medium/${resto.pictId}'),
-                      fit: BoxFit.cover)),
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(15),
+                ),
+                image: DecorationImage(
+                  image: NetworkImage('$baseUrl/images/medium/${resto.pictId}'),
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -44,14 +54,20 @@ class ItemList extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                      alignment: Alignment.center,
-                      child: Text(
-                        resto.name,
-                        style: GoogleFonts.poppins(
-                            fontSize: 14, color: Colors.white),
-                      )),
+                    alignment: Alignment.center,
+                    child: Text(
+                      resto.name,
+                      style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
                   Container(
-                    margin: const EdgeInsets.only(bottom: 10, top: 10),
+                    margin: const EdgeInsets.only(
+                      bottom: 10,
+                      top: 10,
+                    ),
                     child: Row(
                       children: [
                         const Icon(
@@ -61,33 +77,38 @@ class ItemList extends StatelessWidget {
                         Text(
                           resto.city,
                           style: GoogleFonts.poppins(
-                              fontSize: 14, color: Colors.white),
+                            fontSize: 14,
+                            color: Colors.white,
+                          ),
                         ),
                       ],
                     ),
                   ),
                   Row(
                     children: List<Widget>.generate(
-                            5,
-                            (index) => Icon(
-                                  (index < resto.rate.round())
-                                      ? Icons.star
-                                      : Icons.star_outline,
-                                  size: 16,
-                                  color: Colors.amber,
-                                )) +
+                          5,
+                          (index) => Icon(
+                            (index < resto.rate.round())
+                                ? Icons.star
+                                : Icons.star_outline,
+                            size: 16,
+                            color: Colors.amber,
+                          ),
+                        ) +
                         [
                           const SizedBox(width: 4),
                           Text(
                             resto.rate.toString(),
                             style: GoogleFonts.poppins(
-                                fontSize: 14, color: Colors.white),
-                          )
+                              fontSize: 14,
+                              color: Colors.white,
+                            ),
+                          ),
                         ],
-                  )
+                  ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

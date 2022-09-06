@@ -1,5 +1,3 @@
-
-
 class Category {
   final String name;
 

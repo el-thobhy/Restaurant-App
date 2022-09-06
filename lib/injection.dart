@@ -25,7 +25,13 @@ void init() {
   locator.registerFactory(() => RestaurantBloc(locator()));
   locator.registerFactory(() => SearchBloc(locator()));
   locator.registerFactory(
-      () => DetailBloc(locator(), locator(), locator(), locator()));
+    () => DetailBloc(
+      locator(),
+      locator(),
+      locator(),
+      locator(),
+    ),
+  );
   locator.registerFactory(() => FavoriteBloc(locator()));
   locator.registerFactory(() => ScheduleCubit());
 
@@ -39,18 +45,29 @@ void init() {
   locator.registerLazySingleton(() => RemoveFavoriteList(locator()));
 
   //repositories
-  locator.registerLazySingleton<RestaurantRepository>(() =>
-      RestaurantRepositoryImpl(
-          remoteDataSource: locator(), localDataSource: locator()));
+  locator.registerLazySingleton<RestaurantRepository>(
+    () => RestaurantRepositoryImpl(
+      remoteDataSource: locator(),
+      localDataSource: locator(),
+    ),
+  );
 
   //data sources
   locator.registerLazySingleton<RestaurantRemoteDataSource>(
-      () => RestaurantRemoteDataSourceImpl(locator()));
+    () => RestaurantRemoteDataSourceImpl(
+      locator(),
+    ),
+  );
   locator.registerLazySingleton<RestauranLocalDataSource>(
-      () => RestaurantLocalDataSourceImpl(helper: locator()));
+    () => RestaurantLocalDataSourceImpl(
+      helper: locator(),
+    ),
+  );
 
   //helper
-  locator.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
+  locator.registerLazySingleton<DatabaseHelper>(
+    () => DatabaseHelper(),
+  );
 
   //client
   locator.registerLazySingleton(() => HttpClientInit.client);

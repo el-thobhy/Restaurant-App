@@ -9,16 +9,16 @@ class SearchTable extends Equatable {
   final String city;
   final double rate;
 
-  const SearchTable(
-      {required this.id,
-      required this.city,
-      required this.name,
-      required this.rate,
-      required this.desc,
-      required this.pictId});
+  const SearchTable({
+    required this.id,
+    required this.city,
+    required this.name,
+    required this.rate,
+    required this.desc,
+    required this.pictId,
+  });
 
-  factory SearchTable.fromEntity(SearchTable restaurant) =>
-      SearchTable(
+  factory SearchTable.fromEntity(SearchTable restaurant) => SearchTable(
         id: restaurant.id,
         city: restaurant.city,
         name: restaurant.name,
@@ -28,12 +28,13 @@ class SearchTable extends Equatable {
       );
 
   factory SearchTable.fromMap(Map<String, dynamic> map) => SearchTable(
-      id: map['id'],
-      city: map['city'],
-      name: map['name'],
-      rate: map['rate'],
-      desc: map['description'],
-      pictId: map['pictId']);
+        id: map['id'],
+        city: map['city'],
+        name: map['name'],
+        rate: map['rate'],
+        desc: map['description'],
+        pictId: map['pictId'],
+      );
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -45,8 +46,21 @@ class SearchTable extends Equatable {
       };
 
   Search toEntity() => Search.saveBookmark(
-      id: id, city: city, name: name, rate: rate, desc: desc, pictId: pictId);
+        id: id,
+        city: city,
+        name: name,
+        rate: rate,
+        desc: desc,
+        pictId: pictId,
+      );
 
   @override
-  List<Object?> get props => [id, city, name, rate, desc, pictId];
+  List<Object?> get props => [
+        id,
+        city,
+        name,
+        rate,
+        desc,
+        pictId,
+      ];
 }

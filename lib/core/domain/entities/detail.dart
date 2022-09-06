@@ -15,44 +15,47 @@ class Detail extends Equatable {
   final double rate;
   final List<CustomerReview> customerReviews;
 
-  const Detail(
-      {required this.id,
-      required this.name,
-      required this.desc,
-      required this.pictId,
-      required this.rate,
-      required this.city,
-      required this.menu,
-      required this.address,
-      required this.categories,
-      required this.customerReviews});
+  const Detail({
+    required this.id,
+    required this.name,
+    required this.desc,
+    required this.pictId,
+    required this.rate,
+    required this.city,
+    required this.menu,
+    required this.address,
+    required this.categories,
+    required this.customerReviews,
+  });
 
   factory Detail.fromJson(Map<String, dynamic> json) => Detail(
-      id: json['id'],
-      name: json['name'],
-      desc: json['description'],
-      pictId: json['pictureId'],
-      rate: json['rating'].toDouble(),
-      city: json['city'],
-      menu: Menu.fromJson(json['menus']),
-      address: json['address'],
-      categories: List<Category>.from(
-          json['categories'].map((e) => Category.fromJson(e))),
-      customerReviews: List<CustomerReview>.from(
-          json['customerReviews'].map((e) => CustomerReview.fromJson(e))));
+        id: json['id'],
+        name: json['name'],
+        desc: json['description'],
+        pictId: json['pictureId'],
+        rate: json['rating'].toDouble(),
+        city: json['city'],
+        menu: Menu.fromJson(json['menus']),
+        address: json['address'],
+        categories: List<Category>.from(
+            json['categories'].map((e) => Category.fromJson(e))),
+        customerReviews: List<CustomerReview>.from(
+            json['customerReviews'].map((e) => CustomerReview.fromJson(e))),
+      );
 
   Detail toEntity() {
     return Detail(
-        id: id,
-        name: name,
-        desc: desc,
-        pictId: pictId,
-        rate: rate,
-        city: city,
-        menu: menu,
-        address: address,
-        categories: categories,
-        customerReviews: customerReviews);
+      id: id,
+      name: name,
+      desc: desc,
+      pictId: pictId,
+      rate: rate,
+      city: city,
+      menu: menu,
+      address: address,
+      categories: categories,
+      customerReviews: customerReviews,
+    );
   }
 
   @override
@@ -66,6 +69,6 @@ class Detail extends Equatable {
         menu,
         address,
         categories,
-        customerReviews
+        customerReviews,
       ];
 }

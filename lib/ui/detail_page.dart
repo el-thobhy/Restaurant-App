@@ -13,7 +13,10 @@ class PageDetail extends StatefulWidget {
   static const routeName = '/detail-page';
   final String idRestaurant;
 
-  const PageDetail({Key? key, required this.idRestaurant}) : super(key: key);
+  const PageDetail({
+    Key? key,
+    required this.idRestaurant,
+  }) : super(key: key);
 
   @override
   State<PageDetail> createState() => _PageDetailState();
@@ -23,10 +26,12 @@ class _PageDetailState extends State<PageDetail> {
   @override
   void initState() {
     Future.microtask(() {
-      BlocProvider.of<DetailBloc>(context, listen: false)
-          .add(OnDetailCalled(widget.idRestaurant));
-      BlocProvider.of<DetailBloc>(context, listen: false)
-          .add(FetchFavoriteStatus(widget.idRestaurant));
+      BlocProvider.of<DetailBloc>(context, listen: false).add(
+        OnDetailCalled(widget.idRestaurant),
+      );
+      BlocProvider.of<DetailBloc>(context, listen: false).add(
+        FetchFavoriteStatus(widget.idRestaurant),
+      );
     });
     super.initState();
   }
@@ -44,61 +49,68 @@ class _PageDetailState extends State<PageDetail> {
             color: Colors.black,
           ),
           SafeArea(
-              child: Container(
-            color: Colors.black,
-          )),
+            child: Container(
+              color: Colors.black,
+            ),
+          ),
           SafeArea(
-              child: SingleChildScrollView(
-            child: BlocConsumer<DetailBloc, DetailState>(
-              listener: (context, state) async {
-                if (state.favoriteMessage == bookmarkAddSourceMessage ||
-                    state.favoriteMessage == bookmarkRemoveMessage) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(
-                    state.favoriteMessage,
-                    style:
-                        GoogleFonts.poppins(fontSize: 16, color: Colors.white),
-                  )));
-                } else if (state.detailState == RequestState.error) {
-                  ErrorState(
-                    message: state.favoriteMessage,
-                  );
-                } else {
-                  showDialog(
+            child: SingleChildScrollView(
+              child: BlocConsumer<DetailBloc, DetailState>(
+                listener: (context, state) async {
+                  if (state.favoriteMessage == bookmarkAddSourceMessage ||
+                      state.favoriteMessage == bookmarkRemoveMessage) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          state.favoriteMessage,
+                          style: GoogleFonts.poppins(
+                              fontSize: 16, color: Colors.white),
+                        ),
+                      ),
+                    );
+                  } else if (state.detailState == RequestState.error) {
+                    ErrorState(
+                      message: state.favoriteMessage,
+                    );
+                  } else {
+                    showDialog(
                       context: context,
                       builder: (context) {
                         return AlertDialog(
                           content: Text(state.message),
                         );
-                      });
-                }
-              },
-              listenWhen: (previousState, currentState) =>
-                  previousState.favoriteMessage !=
-                      currentState.favoriteMessage &&
-                  currentState.favoriteMessage != '',
-              builder: (context, state) {
-                if (state.detailState == RequestState.loaded) {
-                  return SafeArea(
+                      },
+                    );
+                  }
+                },
+                listenWhen: (previousState, currentState) =>
+                    previousState.favoriteMessage !=
+                        currentState.favoriteMessage &&
+                    currentState.favoriteMessage != '',
+                builder: (context, state) {
+                  if (state.detailState == RequestState.loaded) {
+                    return SafeArea(
                       child: DetailContent(
-                    detail: state.detail!,
-                    isAddedToFavorite: state.isAddedTofavorite,
-                  ));
-                } else if (state.detailState == RequestState.error) {
-                  return ErrorState(message: state.message);
-                } else if (state.detailState == RequestState.loading) {
-                  return SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.75,
-                    child: const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-                } else {
-                  return const EmptyState();
-                }
-              },
+                        detail: state.detail!,
+                        isAddedToFavorite: state.isAddedTofavorite,
+                      ),
+                    );
+                  } else if (state.detailState == RequestState.error) {
+                    return ErrorState(message: state.message);
+                  } else if (state.detailState == RequestState.loading) {
+                    return SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.75,
+                      child: const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  } else {
+                    return const EmptyState();
+                  }
+                },
+              ),
             ),
-          ))
+          )
         ],
       ),
     );
@@ -119,18 +131,20 @@ class DetailContent extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Hero(
-              tag: detail.id,
-              child: Container(
-                width: double.infinity,
-                height: 300,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    image: DecorationImage(
-                        image: NetworkImage(
-                          '$baseUrl/images/medium/${detail.pictId}',
-                        ),
-                        fit: BoxFit.cover)),
-              )),
+            tag: detail.id,
+            child: Container(
+              width: double.infinity,
+              height: 300,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                image: DecorationImage(
+                    image: NetworkImage(
+                      '$baseUrl/images/medium/${detail.pictId}',
+                    ),
+                    fit: BoxFit.cover),
+              ),
+            ),
+          ),
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -152,31 +166,36 @@ class DetailContent extends StatelessWidget {
                               fontSize: 24, color: Colors.white),
                         ),
                         IconButton(
-                            onPressed: () async {
-                              if (kDebugMode) {
-                                print(isAddedToFavorite);
-                              }
-                              if (!isAddedToFavorite) {
-                                BlocProvider.of<DetailBloc>(context,
-                                        listen: false)
-                                    .add(AddFavorite(detail));
-                              } else {
-                                BlocProvider.of<DetailBloc>(context,
-                                        listen: false)
-                                    .add(RemoveFavorite(detail));
-                              }
-                            },
-                            icon: isAddedToFavorite
-                                ? const Icon(
-                                    Icons.favorite,
-                                    color: Colors.red,
-                                    size: 40.0,
-                                  )
-                                : const Icon(
-                                    Icons.favorite_border_outlined,
-                                    color: Colors.red,
-                                    size: 40.0,
-                                  ))
+                          onPressed: () async {
+                            if (kDebugMode) {
+                              print(isAddedToFavorite);
+                            }
+                            if (!isAddedToFavorite) {
+                              BlocProvider.of<DetailBloc>(context,
+                                      listen: false)
+                                  .add(
+                                AddFavorite(detail),
+                              );
+                            } else {
+                              BlocProvider.of<DetailBloc>(context,
+                                      listen: false)
+                                  .add(
+                                RemoveFavorite(detail),
+                              );
+                            }
+                          },
+                          icon: isAddedToFavorite
+                              ? const Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                  size: 40.0,
+                                )
+                              : const Icon(
+                                  Icons.favorite_border_outlined,
+                                  color: Colors.red,
+                                  size: 40.0,
+                                ),
+                        ),
                       ],
                     ),
                   ),
@@ -195,8 +214,9 @@ class DetailContent extends StatelessWidget {
                       Container(
                         width: 100,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: const Color(0xFF304FFE)),
+                          borderRadius: BorderRadius.circular(10),
+                          color: const Color(0xFF304FFE),
+                        ),
                         child: Text(
                           detail.city,
                           textAlign: TextAlign.center,
@@ -216,21 +236,22 @@ class DetailContent extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: List<Widget>.generate(
-                                  5,
-                                  (index) => Icon(
-                                        (index < detail.rate.round())
-                                            ? Icons.star
-                                            : Icons.star_outline,
-                                        size: 16,
-                                        color: Colors.amber,
-                                      )) +
+                                5,
+                                (index) => Icon(
+                                  (index < detail.rate.round())
+                                      ? Icons.star
+                                      : Icons.star_outline,
+                                  size: 16,
+                                  color: Colors.amber,
+                                ),
+                              ) +
                               [
                                 const SizedBox(width: 4),
                                 Text(
                                   detail.rate.toString(),
                                   style: GoogleFonts.poppins(
                                       fontSize: 14, color: Colors.white),
-                                )
+                                ),
                               ],
                         ),
                       )
@@ -267,28 +288,31 @@ class DetailContent extends StatelessWidget {
                     height: 70,
                     width: double.infinity,
                     child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: detail.menu.foods
-                            .map((e) => Container(
-                                  margin: const EdgeInsets.only(right: 10),
-                                  width: 130,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: Colors.white),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        e.name,
-                                        textAlign: TextAlign.center,
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 15, color: Colors.black),
-                                        maxLines: 1,
-                                      )
-                                    ],
-                                  ),
-                                ))
-                            .toList()),
+                      scrollDirection: Axis.horizontal,
+                      children: detail.menu.foods
+                          .map(
+                            (e) => Container(
+                              margin: const EdgeInsets.only(right: 10),
+                              width: 130,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.white),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    e.name,
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 15, color: Colors.black),
+                                    maxLines: 1,
+                                  )
+                                ],
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
                   ),
                   Container(
                     margin: const EdgeInsets.symmetric(vertical: 6),
@@ -304,26 +328,30 @@ class DetailContent extends StatelessWidget {
                     height: 70,
                     width: double.infinity,
                     child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: detail.menu.drinks
-                            .map((e) => Container(
-                                margin: const EdgeInsets.only(right: 10),
-                                width: 130,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: Colors.white),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      e.name,
-                                      textAlign: TextAlign.center,
-                                      style: GoogleFonts.poppins(fontSize: 15),
-                                      maxLines: 1,
-                                    )
-                                  ],
-                                )))
-                            .toList()),
+                      scrollDirection: Axis.horizontal,
+                      children: detail.menu.drinks
+                          .map(
+                            (e) => Container(
+                              margin: const EdgeInsets.only(right: 10),
+                              width: 130,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.white),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    e.name,
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.poppins(fontSize: 15),
+                                    maxLines: 1,
+                                  )
+                                ],
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
                   ),
                   const SizedBox(
                     height: 10,
@@ -340,47 +368,51 @@ class DetailContent extends StatelessWidget {
                   ),
                   Column(
                     children: detail.customerReviews
-                        .map((e) => Container(
-                              padding: const EdgeInsets.all(16),
-                              margin:
-                                  const EdgeInsets.only(top: 16, bottom: 16),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(16),
-                                  color: const Color(0xFF252525)),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        e.name,
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 12,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Text(e.date,
-                                          style: GoogleFonts.poppins(
-                                            fontSize: 12,
-                                            color: Colors.white,
-                                          ))
-                                    ],
-                                  ),
-                                  Container(
-                                    margin: const EdgeInsets.symmetric(
-                                        vertical: 10),
-                                    child: Text(
-                                      '"' + e.review + '"',
+                        .map(
+                          (e) => Container(
+                            padding: const EdgeInsets.all(16),
+                            margin: const EdgeInsets.only(top: 16, bottom: 16),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              color: const Color(0xFF252525),
+                            ),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      e.name,
                                       style: GoogleFonts.poppins(
                                           fontSize: 12,
                                           color: Colors.white,
-                                          fontWeight: FontWeight.w200),
+                                          fontWeight: FontWeight.bold),
                                     ),
-                                  )
-                                ],
-                              ),
-                            ))
+                                    Text(
+                                      e.date,
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 12,
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Container(
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 10),
+                                  child: Text(
+                                    '"' + e.review + '"',
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 12,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w200),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        )
                         .toList(),
                   ),
                   const SizedBox(

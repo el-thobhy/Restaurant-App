@@ -7,27 +7,33 @@ class RestaurantResponse extends Equatable {
   final int count;
   final List<RestaurantModel> restaurant;
 
-  const RestaurantResponse(
-      {required this.error,
-      required this.message,
-      required this.count,
-      required this.restaurant});
+  const RestaurantResponse({
+    required this.error,
+    required this.message,
+    required this.count,
+    required this.restaurant,
+  });
 
   factory RestaurantResponse.fromJson(Map<String, dynamic> json) =>
       RestaurantResponse(
-          error: json["error"],
-          message: json["message"],
-          count: json["count"],
-          restaurant: List<RestaurantModel>.from(
-              json["restaurants"].map((a) => RestaurantModel.fromJson(a))));
+        error: json["error"],
+        message: json["message"],
+        count: json["count"],
+        restaurant: List<RestaurantModel>.from(
+            json["restaurants"].map((a) => RestaurantModel.fromJson(a))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "error": error,
-    "message": message,
-    "count": count,
-    "restaurant": List<dynamic>.from(restaurant.map((e) => e.toJson())),
-  };
+        "error": error,
+        "message": message,
+        "count": count,
+        "restaurant": List<dynamic>.from(restaurant.map((e) => e.toJson())),
+      };
 
   @override
-  List<Object> get props => [restaurant, message, error];
+  List<Object> get props => [
+        restaurant,
+        message,
+        error,
+      ];
 }

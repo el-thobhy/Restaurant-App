@@ -10,13 +10,14 @@ class RestaurantTable extends Equatable {
   final String city;
   final double rate;
 
-  const RestaurantTable(
-      {required this.id,
-      required this.city,
-      required this.name,
-      required this.rate,
-      required this.desc,
-      required this.pictId});
+  const RestaurantTable({
+    required this.id,
+    required this.city,
+    required this.name,
+    required this.rate,
+    required this.desc,
+    required this.pictId,
+  });
 
   factory RestaurantTable.fromEntity(Detail restaurant) => RestaurantTable(
         id: restaurant.id,
@@ -28,12 +29,13 @@ class RestaurantTable extends Equatable {
       );
 
   factory RestaurantTable.fromMap(Map<String, dynamic> map) => RestaurantTable(
-      id: map['id'],
-      city: map['city'],
-      name: map['name'],
-      rate: map['rate'],
-      desc: map['description'],
-      pictId: map['pictId']);
+        id: map['id'],
+        city: map['city'],
+        name: map['name'],
+        rate: map['rate'],
+        desc: map['description'],
+        pictId: map['pictId'],
+      );
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -45,8 +47,21 @@ class RestaurantTable extends Equatable {
       };
 
   Restaurant toEntity() => Restaurant.saveBookmark(
-      id: id, city: city, name: name, rate: rate, desc: desc, pictId: pictId);
+        id: id,
+        city: city,
+        name: name,
+        rate: rate,
+        desc: desc,
+        pictId: pictId,
+      );
 
   @override
-  List<Object?> get props => [id, city, name, rate, desc, pictId];
+  List<Object?> get props => [
+        id,
+        city,
+        name,
+        rate,
+        desc,
+        pictId,
+      ];
 }
