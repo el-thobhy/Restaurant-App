@@ -5,6 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         
+
+        {
+            "name": "Flutter",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart"
+        },
+        
         {
             "name": "Restaurant_App",
             "request": "launch",
@@ -16,15 +24,5 @@
             "type": "dart",
             "flutterMode": "profile"
         },
-        {
-            "name": "Flutter for web",
-            "type": "dart",
-            "request": "launch",
-            "program": "lib/main.dart",
-            "args": [
-              "-d",
-              "chrome"
-            ]
-          }
     ]
 }
