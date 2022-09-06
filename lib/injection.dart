@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:restaurant_app/core/common/http_client.dart';
 import 'package:restaurant_app/core/data/datasources/db/database_helper.dart';
 import 'package:restaurant_app/core/data/datasources/local_data_source.dart';
 import 'package:restaurant_app/core/data/datasources/remote_data_source.dart';
@@ -50,4 +51,7 @@ void init() {
 
   //helper
   locator.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
+
+  //client
+  locator.registerLazySingleton(() => HttpClientInit.client);
 }

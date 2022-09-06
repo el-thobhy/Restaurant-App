@@ -7,6 +7,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app/core/common/http_client.dart';
 import 'package:restaurant_app/core/common/notification_helper.dart';
 import 'package:restaurant_app/core/common/utils.dart';
 import 'package:restaurant_app/injection.dart' as di;
@@ -37,6 +38,8 @@ void main() async {
     await AndroidAlarmManager.initialize();
   }
   await notificationHelper.initNotifications(flutterLocalNotificationsPlugin);
+  
+  await HttpClientInit.init();
 
   di.init();
 
