@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
-class NoInternetPage extends StatelessWidget {
+class ErrorState extends StatelessWidget {
   final String message;
 
-  const NoInternetPage({Key? key, required this.message}) : super(key: key);
+  const ErrorState({Key? key, required this.message}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +21,10 @@ class NoInternetPage extends StatelessWidget {
                 style: GoogleFonts.poppins(fontSize: 20, color: Colors.white),
                 textAlign: TextAlign.center,
               ),
+              Lottie.asset(
+                'assets/internet_error_state.json',
+                height: 200,
+              )
             ]),
       ),
     );

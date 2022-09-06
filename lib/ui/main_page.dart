@@ -5,8 +5,9 @@ import 'package:restaurant_app/ui/bloc/list/restaurant_bloc.dart';
 import 'package:restaurant_app/ui/bloc/list/restaurant_state.dart';
 import 'package:restaurant_app/ui/detail_page.dart';
 import 'package:restaurant_app/ui/search_page.dart';
+import 'package:restaurant_app/widget/empty_state.dart';
 import 'package:restaurant_app/widget/item_list_vertical.dart';
-import 'package:restaurant_app/widget/no_internet.dart';
+import 'package:restaurant_app/widget/error_state.dart';
 
 class MainPage extends StatefulWidget {
   static const routeName = '/main-page';
@@ -62,7 +63,7 @@ class _MainPageState extends State<MainPage> {
                 BlocBuilder<RestaurantBloc, RestaurantState>(
                     builder: (context, listState) {
                   if (listState is RestaurantError) {
-                    return NoInternetPage(message: listState.message);
+                    return ErrorState(message: listState.message);
                   } else if (listState is RestaurantLoaded) {
                     List<Restaurant> listRestaurant = listState.restaurantList;
                     if (listRestaurant.isEmpty) {
@@ -82,13 +83,16 @@ class _MainPageState extends State<MainPage> {
                             .toList(),
                       );
                     }
+                  } else if (listState is RestaurantLoading) {
+                    return SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.75,
+                      child: const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  } else {
+                    return const EmptyState();
                   }
-                  return SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.75,
-                    child: const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
                 }),
               ],
             )),

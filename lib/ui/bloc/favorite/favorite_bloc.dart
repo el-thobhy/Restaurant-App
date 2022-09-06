@@ -21,6 +21,8 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
     final result = await _getFavoriteRestaurant.execute();
 
     result.fold(
-        (l) => emit(FavoriteError(l.message)), (r) => emit(FavoriteLoaded(r)));
+        (failure) => emit(FavoriteError(failure.message)),
+        (data) =>
+            data.isEmpty ? emit(FavoriteEmpty()) : emit(FavoriteLoaded(data)));
   }
 }

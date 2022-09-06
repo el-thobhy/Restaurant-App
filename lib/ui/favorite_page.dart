@@ -7,8 +7,9 @@ import 'package:restaurant_app/ui/bloc/favorite/favorite_bloc.dart';
 import 'package:restaurant_app/ui/bloc/favorite/favorite_event.dart';
 import 'package:restaurant_app/ui/bloc/favorite/favorite_state.dart';
 import 'package:restaurant_app/ui/detail_page.dart';
+import 'package:restaurant_app/widget/empty_state.dart';
 import 'package:restaurant_app/widget/item_list_vertical.dart';
-import 'package:restaurant_app/widget/no_internet.dart';
+import 'package:restaurant_app/widget/error_state.dart';
 
 class FavoritePage extends StatefulWidget {
   static const routeName = '/favorite-page';
@@ -67,7 +68,7 @@ class _FavoritePageState extends State<FavoritePage> with RouteAware {
                 BlocBuilder<FavoriteBloc, FavoriteState>(
                     builder: (context, listState) {
                   if (listState is FavoriteError) {
-                    return NoInternetPage(message: listState.message);
+                    return ErrorState(message: listState.message);
                   } else if (listState is FavoriteLoaded) {
                     List<Restaurant> listRestaurant = listState.result;
                     if (listRestaurant.isEmpty) {
@@ -91,14 +92,17 @@ class _FavoritePageState extends State<FavoritePage> with RouteAware {
                             .toList(),
                       );
                     }
-                  } else {
+                  } else if (listState is FavoriteLoading) {
                     return SizedBox(
                       height: MediaQuery.of(context).size.height * 0.75,
                       child: const Center(
                         child: CircularProgressIndicator(),
                       ),
                     );
+                  } else if (listState is FavoriteEmpty) {
+                    return const EmptyState();
                   }
+                  return const EmptyState();
                 }),
               ],
             )),

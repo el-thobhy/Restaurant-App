@@ -6,7 +6,8 @@ import 'package:restaurant_app/core/common/constants.dart';
 import 'package:restaurant_app/core/common/state_enum.dart';
 import 'package:restaurant_app/core/domain/entities/detail.dart';
 import 'package:restaurant_app/ui/bloc/detail/detail_bloc.dart';
-import 'package:restaurant_app/widget/no_internet.dart';
+import 'package:restaurant_app/widget/empty_state.dart';
+import 'package:restaurant_app/widget/error_state.dart';
 
 class PageDetail extends StatefulWidget {
   static const routeName = '/detail-page';
@@ -59,7 +60,7 @@ class _PageDetailState extends State<PageDetail> {
                         GoogleFonts.poppins(fontSize: 16, color: Colors.white),
                   )));
                 } else if (state.detailState == RequestState.error) {
-                  NoInternetPage(
+                  ErrorState(
                     message: state.favoriteMessage,
                   );
                 } else {
@@ -84,14 +85,16 @@ class _PageDetailState extends State<PageDetail> {
                     isAddedToFavorite: state.isAddedTofavorite,
                   ));
                 } else if (state.detailState == RequestState.error) {
-                  return NoInternetPage(message: state.message);
-                } else {
+                  return ErrorState(message: state.message);
+                } else if (state.detailState == RequestState.loading) {
                   return SizedBox(
                     height: MediaQuery.of(context).size.height * 0.75,
                     child: const Center(
                       child: CircularProgressIndicator(),
                     ),
                   );
+                } else {
+                  return const EmptyState();
                 }
               },
             ),

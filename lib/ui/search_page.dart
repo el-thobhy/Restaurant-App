@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurant_app/ui/bloc/search/search_bloc.dart';
 import 'package:restaurant_app/ui/detail_page.dart';
+import 'package:restaurant_app/widget/empty_state.dart';
 import 'package:restaurant_app/widget/item_list_search.dart';
-import 'package:restaurant_app/widget/no_internet.dart';
+import 'package:restaurant_app/widget/error_state.dart';
 
 class SearchPage extends StatefulWidget {
   static const routeName = '/search-page';
@@ -73,14 +73,6 @@ class _SearchPageState extends State<SearchPage> {
                     textInputAction: TextInputAction.search,
                   ),
                   const SizedBox(height: 16),
-                  Text(
-                    'Search Result',
-                    style: GoogleFonts.poppins(
-                        color: Colors.white,
-                        fontSize: 19,
-                        fontWeight: FontWeight.w500,
-                        letterSpacing: 0.15),
-                  ),
                   _buildSearchResult(),
                 ],
               ),
@@ -117,9 +109,11 @@ class _SearchPageState extends State<SearchPage> {
                   .toList(),
             );
           } else if (state is SearchError) {
-            return NoInternetPage(message: state.message);
+            return ErrorState(message: state.message);
+          } else if (state is SearchEmpty) {
+            return const EmptyState();
           }
-          return Container();
+          return const EmptyState();
         });
   }
 }

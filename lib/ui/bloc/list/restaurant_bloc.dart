@@ -23,9 +23,9 @@ class RestaurantBloc extends Bloc<RestaurantEvent, RestaurantState> {
           emit(RestaurantError(failure.message));
         },
         (data) {
-          data.isNotEmpty 
-            ? emit(RestaurantLoaded(data))
-            : emit(RestaurantEmpty());
+          data.isNotEmpty
+              ? emit(RestaurantLoaded(data))
+              : emit(RestaurantEmpty());
         },
       );
     }, transformer: debounce(const Duration(microseconds: 500)));
