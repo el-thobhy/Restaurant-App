@@ -16,9 +16,14 @@ abstract class RestaurantRemoteDataSource {
 }
 
 class RestaurantRemoteDataSourceImpl implements RestaurantRemoteDataSource {
+
+final http.Client client;
+
+RestaurantRemoteDataSourceImpl(this.client);
+
   @override
   Future<List<RestaurantModel>> getRestaurant() async {
-    var response = await http.get(Uri.parse('$baseUrl/list'));
+    var response = await client.get(Uri.parse('$baseUrl/list'));
 
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
@@ -30,7 +35,7 @@ class RestaurantRemoteDataSourceImpl implements RestaurantRemoteDataSource {
 
   @override
   Future<List<SearchModel>> getSearch(String query) async {
-    var response = await http.get(Uri.parse('$baseUrl/search?q=$query'));
+    var response = await client.get(Uri.parse('$baseUrl/search?q=$query'));
 
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
@@ -42,7 +47,7 @@ class RestaurantRemoteDataSourceImpl implements RestaurantRemoteDataSource {
 
   @override
   Future<DetailResponse> getDetail(String id) async {
-    final response = await http.get(Uri.parse('$baseUrl/detail/$id'));
+    final response = await client.get(Uri.parse('$baseUrl/detail/$id'));
     if(response.statusCode == 200){
       return DetailResponse.fromJson(json.decode(response.body));
     }else{

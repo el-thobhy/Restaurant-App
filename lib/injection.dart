@@ -44,7 +44,7 @@ void init() {
 
   //data sources
   locator.registerLazySingleton<RestaurantRemoteDataSource>(
-      () => RestaurantRemoteDataSourceImpl());
+      () => RestaurantRemoteDataSourceImpl(locator()));
   locator.registerLazySingleton<RestauranLocalDataSource>(
       () => RestaurantLocalDataSourceImpl(helper: locator()));
 
