@@ -88,10 +88,16 @@ class _SearchPageState extends State<SearchPage> {
         key: const Key('search'),
         builder: (context, state) {
           if (state is SearchLoading) {
-            return Container(
-              margin: const EdgeInsets.only(top: 32.0),
-              child: const Center(
-                child: CircularProgressIndicator(),
+            return SizedBox(
+              height: MediaQuery.of(context).size.height * 0.75,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: const [
+                    CircularProgressIndicator(),
+                  ],
+                ),
               ),
             );
           } else if (state is SearchLoaded) {
