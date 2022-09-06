@@ -4,7 +4,7 @@ class CustomerReview {
   final String date;
   final String review;
 
-  CustomerReview(
+  const CustomerReview(
       {required this.name, required this.date, required this.review});
 
   factory CustomerReview.fromJson(Map<String, dynamic> json) => CustomerReview(

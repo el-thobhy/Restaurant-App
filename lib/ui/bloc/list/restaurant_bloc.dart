@@ -14,7 +14,7 @@ class RestaurantBloc extends Bloc<RestaurantEvent, RestaurantState> {
   }
 
   RestaurantBloc(this._restaurant) : super(RestaurantEmpty()) {
-    on<RestaurantEvent>((event, emit) async {
+    on<OnFetchGetRestaurant>((event, emit) async {
       emit(RestaurantLoading());
       final result = await _restaurant.execute();
 
@@ -23,7 +23,9 @@ class RestaurantBloc extends Bloc<RestaurantEvent, RestaurantState> {
           emit(RestaurantError(failure.message));
         },
         (data) {
-          emit(RestaurantLoaded(data));
+          data.isNotEmpty 
+            ? emit(RestaurantLoaded(data))
+            : emit(RestaurantEmpty());
         },
       );
     }, transformer: debounce(const Duration(microseconds: 500)));

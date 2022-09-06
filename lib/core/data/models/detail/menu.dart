@@ -2,10 +2,10 @@
 import 'package:restaurant_app/core/data/models/detail/category.dart';
 
 class Menu {
-  List<Category> foods;
-  List<Category> drinks;
+  final List<Category> foods;
+  final List<Category> drinks;
 
-  Menu({required this.foods, required this.drinks});
+  const Menu({required this.foods, required this.drinks});
 
   factory Menu.fromJson(Map<String, dynamic> json) => Menu(
       foods:

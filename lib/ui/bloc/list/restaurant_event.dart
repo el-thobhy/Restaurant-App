@@ -8,10 +8,6 @@ class RestaurantEvent extends Equatable {
 }
 
 class OnFetchGetRestaurant extends RestaurantEvent {
-  final int id;
-
-  const OnFetchGetRestaurant(this.id);
-
   @override
-  List<Object> get props => [id];
+  List<Object> get props => [];
 }

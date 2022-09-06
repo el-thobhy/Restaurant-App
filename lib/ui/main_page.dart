@@ -23,7 +23,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     Future.microtask(() {
-      BlocProvider.of<RestaurantBloc>(context).add(const RestaurantEvent());
+      BlocProvider.of<RestaurantBloc>(context).add(OnFetchGetRestaurant());
     });
     super.initState();
   }
