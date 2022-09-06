@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 import 'package:restaurant_app/core/common/constants.dart';
 
 import 'package:restaurant_app/core/common/notification_helper.dart';
-import 'package:restaurant_app/core/data/models/list/restaurant_model.dart';
 import 'package:restaurant_app/core/data/models/list/restaurant_response.dart';
 import 'package:restaurant_app/main.dart';
 

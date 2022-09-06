@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:restaurant_app/core/data/models/list/restaurant_model.dart';
-import 'package:restaurant_app/core/data/models/list/restaurant_response.dart';
 import 'package:rxdart/rxdart.dart';
 
 final selectNotificationSubject = BehaviorSubject<String?>();
@@ -30,9 +29,6 @@ class NotificationHelper {
 
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: (String? payload) async {
-      if (payload != null) {
-        print('notification payload: $payload');
-      }
       selectNotificationSubject.add(payload);
     });
   }
