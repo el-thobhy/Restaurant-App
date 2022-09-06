@@ -138,38 +138,44 @@ class DetailContent extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Text(
-                        detail.name,
-                        style: GoogleFonts.poppins(
-                            fontSize: 24, color: Colors.white),
-                      ),
-                      IconButton(
-                          onPressed: () async {
-                            if (kDebugMode) {
-                              print(isAddedToFavorite);
-                            }
-                            if (!isAddedToFavorite) {
-                              BlocProvider.of<DetailBloc>(context,
-                                      listen: false)
-                                  .add(AddFavorite(detail));
-                            } else {
-                              BlocProvider.of<DetailBloc>(context,
-                                      listen: false)
-                                  .add(RemoveFavorite(detail));
-                            }
-                          },
-                          icon: isAddedToFavorite
-                              ? const Icon(
-                                  Icons.favorite,
-                                  color: Colors.red,
-                                )
-                              : const Icon(
-                                  Icons.favorite_border_outlined,
-                                  color: Colors.red,
-                                ))
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          detail.name,
+                          style: GoogleFonts.poppins(
+                              fontSize: 24, color: Colors.white),
+                        ),
+                        IconButton(
+                            onPressed: () async {
+                              if (kDebugMode) {
+                                print(isAddedToFavorite);
+                              }
+                              if (!isAddedToFavorite) {
+                                BlocProvider.of<DetailBloc>(context,
+                                        listen: false)
+                                    .add(AddFavorite(detail));
+                              } else {
+                                BlocProvider.of<DetailBloc>(context,
+                                        listen: false)
+                                    .add(RemoveFavorite(detail));
+                              }
+                            },
+                            icon: isAddedToFavorite
+                                ? const Icon(
+                                    Icons.favorite,
+                                    color: Colors.red,
+                                    size: 40.0,
+                                  )
+                                : const Icon(
+                                    Icons.favorite_border_outlined,
+                                    color: Colors.red,
+                                    size: 40.0,
+                                  ))
+                      ],
+                    ),
                   ),
                   const SizedBox(
                     height: 10,
